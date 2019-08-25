@@ -12,6 +12,7 @@ let baseURL = "https://jsonplaceholder.typicode.com/users"
 
 protocol RepositoryInput: AnyObject {
     func loadEmployees(with urlString: String, completion: @escaping ([Employee]) -> Void, errorHandler: @escaping (Error) -> Void)
+    func loadEmployees(with urlString: String) -> Promise<[Employee]>
 }
 
 class ViewRepository: RepositoryInput {
@@ -26,5 +27,20 @@ class ViewRepository: RepositoryInput {
                 errorHandler(error)
             }
         }
+    }
+
+    func loadEmployees(with urlString: String) -> Promise<[Employee]> {
+        let promise = Promise<[Employee]>(work: { fulfill, reject in
+            NetworkRequest.sendRequest(with: urlString, completionBlock: { employees in
+                DispatchQueue.main.async {
+                    fulfill(employees)
+                }
+            }) { error in
+                DispatchQueue.main.async {
+                    reject(error)
+                }
+            }
+        })
+        return promise
     }
 }

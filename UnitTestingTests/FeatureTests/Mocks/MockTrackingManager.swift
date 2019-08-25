@@ -10,11 +10,11 @@ import Foundation
 @testable import UnitTesting
 
 class MockTrackingManager: TrackingProtocol {
-    var didCallTrackingClick = false
-    var lastClickedEvent: String?
+    var didCallTrackTap = false
+    var lastTappedEvent: String?
 
-    func trackClick(event: String) {
-        didCallTrackingClick = true
-        lastClickedEvent = event
+    func trackTap(event: String) {
+        didCallTrackTap = true
+        lastTappedEvent = event
     }
 }

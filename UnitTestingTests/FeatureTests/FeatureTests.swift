@@ -27,55 +27,21 @@ class FeatureTests: XCTestCase {
         presenter.repositoryInput = repository
     }
 
-    func testTrackingForRefreshList() {
-        presenter.refreshList()
-        XCTAssertTrue(trackingManager.didCallTrackingClick)
-        XCTAssertEqual(trackingManager.lastClickedEvent, "refreshList")
+    func testTrackingForRefreshListTap() {
+        presenter.refreshListTapped()
+        XCTAssertTrue(trackingManager.didCallTrackTap)
+        XCTAssertEqual(trackingManager.lastTappedEvent, "refreshList")
+    }
+
+    func testTrackingForInfoTap() {
+        presenter.trackDisplayInfo()
+        XCTAssertTrue(trackingManager.didCallTrackTap)
+        XCTAssertEqual(trackingManager.lastTappedEvent, "info")
     }
 
     func testFormattedAddress() {
         let regularAddress = Address(street: "12 Kibana", suite: "101 Royal Suite", city: "Boston", zipcode: "02467")
         XCTAssertEqual(presenter.formattedAddress(from: regularAddress), "12 Kibana\n101 Royal Suite\nBoston\n02467\n")
-    }
-
-    func testGetEmployeesWithNonEmptyResponse() {
-        presenter.getEmployees(with: "Employees")
-        XCTAssertTrue(viewInput.didCallSetViewModels)
-        XCTAssertEqual(viewInput.setViewModels?.count, 10)
-    }
-
-    func testGetEmployeesWithEmptyResponse() {
-        presenter.getEmployees(with: "EmptyEmployees")
-        XCTAssertFalse(viewInput.didCallSetViewModels)
-        XCTAssertTrue(viewInput.didCallShowErrorMessage)
-        XCTAssertEqual(viewInput.shownErrorMessage, "No employees found at given destination")
-    }
-
-    func testGetEmployeesWithEmptyDataError() {
-        repository = MockViewRepository(errorToPass: ExternalRequestError.emptyData)
-        presenter.repositoryInput = repository
-        presenter.getEmployees(with: "Employees")
-        XCTAssertFalse(viewInput.didCallSetViewModels)
-        XCTAssertTrue(viewInput.didCallShowErrorMessage)
-        XCTAssertEqual(viewInput.shownErrorMessage, "Empty content. No network data received")
-    }
-
-    func testGetEmployeesWithInvalidURLError() {
-        repository = MockViewRepository(errorToPass: ExternalRequestError.invalidURL)
-        presenter.repositoryInput = repository
-        presenter.getEmployees(with: "Employees")
-        XCTAssertFalse(viewInput.didCallSetViewModels)
-        XCTAssertTrue(viewInput.didCallShowErrorMessage)
-        XCTAssertEqual(viewInput.shownErrorMessage, "Invalid URL passed")
-    }
-
-    func testGetEmployeesWithDefaultError() {
-        repository = MockViewRepository(errorToPass: NSError(domain: "Unknown", code: 100, userInfo: nil))
-        presenter.repositoryInput = repository
-        presenter.getEmployees(with: "Employees")
-        XCTAssertFalse(viewInput.didCallSetViewModels)
-        XCTAssertTrue(viewInput.didCallShowErrorMessage)
-        XCTAssertEqual(viewInput.shownErrorMessage, "Unknown error occurred")
     }
 
     override func tearDown() {
@@ -84,5 +50,169 @@ class FeatureTests: XCTestCase {
         repository = nil
         trackingManager = nil
         super.tearDown()
+    }
+}
+
+// MARK: Mocked closure based or synchronous response unit tests
+extension FeatureTests {
+    // Test run when `getEmployees` is called synchronously
+    func testSyncGetEmployeesWithNonEmptyResponse() {
+        presenter.getEmployeesWithClosure(with: "Employees")
+        XCTAssertTrue(viewInput.didCallSetViewModels)
+        XCTAssertEqual(viewInput.setViewModels?.count, 10)
+    }
+
+    func testSyncGetEmployeesWithEmptyResponse() {
+        presenter.getEmployeesWithClosure(with: "EmptyEmployees")
+        XCTAssertFalse(viewInput.didCallSetViewModels)
+        XCTAssertTrue(viewInput.didCallShowErrorMessage)
+        XCTAssertEqual(viewInput.shownErrorMessage, "No employees found at given destination")
+    }
+
+    func testSyncGetEmployeesWithEmptyDataError() {
+        repository = MockViewRepository(errorToPass: ExternalRequestError.emptyData)
+        presenter.repositoryInput = repository
+        presenter.getEmployeesWithClosure(with: "Employees")
+        XCTAssertFalse(viewInput.didCallSetViewModels)
+        XCTAssertTrue(viewInput.didCallShowErrorMessage)
+        XCTAssertEqual(viewInput.shownErrorMessage, "Empty content. No network data received")
+    }
+
+    func testSyncGetEmployeesWithInvalidURLError() {
+        repository = MockViewRepository(errorToPass: ExternalRequestError.invalidURL)
+        presenter.repositoryInput = repository
+        presenter.getEmployeesWithClosure(with: "Employees")
+        XCTAssertFalse(viewInput.didCallSetViewModels)
+        XCTAssertTrue(viewInput.didCallShowErrorMessage)
+        XCTAssertEqual(viewInput.shownErrorMessage, "Invalid URL passed")
+    }
+
+    func testSyncGetEmployeesWithDecodingError() {
+        repository = MockViewRepository(errorToPass: ExternalRequestError.invalidJSON)
+        presenter.repositoryInput = repository
+        presenter.getEmployeesWithClosure(with: "Employees")
+        XCTAssertFalse(viewInput.didCallSetViewModels)
+        XCTAssertTrue(viewInput.didCallShowErrorMessage)
+        XCTAssertEqual(viewInput.shownErrorMessage, "Error occurred while decoding JSON data into Codable object")
+    }
+
+    func testSyncGetEmployeesWithDefaultError() {
+        repository = MockViewRepository(errorToPass: NSError(domain: "UnitTests", code: 100, userInfo: nil))
+        presenter.repositoryInput = repository
+        presenter.getEmployeesWithClosure(with: "Employees")
+        XCTAssertFalse(viewInput.didCallSetViewModels)
+        XCTAssertTrue(viewInput.didCallShowErrorMessage)
+        XCTAssertEqual(viewInput.shownErrorMessage, "Unknown Error occurred")
+    }
+}
+
+//// MARK: Mocked promise based or asynchronous response unit tests
+extension FeatureTests {
+    func testAsyncGetEmployeesWithNonEmptyResponse() {
+
+        // Test run when `getEmployees` is called asynchronously
+        let loadEmployeesRecordsExpectation = expectation(description: "Employees data loaded successfully expectation")
+        viewInput = MockViewInput(completion: {
+            loadEmployeesRecordsExpectation.fulfill()
+        })
+        presenter = ViewPresenter(viewInput: viewInput, trackingManager: trackingManager)
+        presenter.repositoryInput = repository
+
+        presenter.getEmployeesWithPromise(with: "Employees")
+
+        waitForExpectations(timeout: 2.0, handler: nil)
+        XCTAssertTrue(viewInput.didCallSetViewModels)
+        XCTAssertEqual(viewInput.setViewModels?.count, 10)
+    }
+
+    func testAsyncGetEmployeesWithEmptyResponse() {
+
+        let loadEmployeesRecordsExpectation = expectation(description: "Empty Employees data loaded")
+        viewInput = MockViewInput(completion: {
+            loadEmployeesRecordsExpectation.fulfill()
+        })
+        presenter = ViewPresenter(viewInput: viewInput, trackingManager: trackingManager)
+        presenter.repositoryInput = repository
+
+        presenter.getEmployeesWithPromise(with: "EmptyEmployees")
+
+        waitForExpectations(timeout: 2.0, handler: nil)
+
+        XCTAssertFalse(viewInput.didCallSetViewModels)
+        XCTAssertTrue(viewInput.didCallShowErrorMessage)
+        XCTAssertEqual(viewInput.shownErrorMessage, "No employees found at given destination")
+    }
+
+    func testAsyncGetEmployeesWithEmptyDataError() {
+
+        let loadEmployeesRecordsExpectation = expectation(description: "No Employees data received")
+        viewInput = MockViewInput(completion: {
+            loadEmployeesRecordsExpectation.fulfill()
+        })
+        presenter = ViewPresenter(viewInput: viewInput, trackingManager: trackingManager)
+        repository = MockViewRepository(errorToPass: ExternalRequestError.emptyData)
+        presenter.repositoryInput = repository
+
+        presenter.getEmployeesWithPromise(with: "Employees")
+
+        waitForExpectations(timeout: 2.0, handler: nil)
+
+        XCTAssertFalse(viewInput.didCallSetViewModels)
+        XCTAssertTrue(viewInput.didCallShowErrorMessage)
+        XCTAssertEqual(viewInput.shownErrorMessage, "Empty content. No network data received")
+    }
+
+    func testAsyncGetEmployeesWithInvalidURLError() {
+        let loadEmployeesRecordsExpectation = expectation(description: "Invalid URL expectation")
+        viewInput = MockViewInput(completion: {
+            loadEmployeesRecordsExpectation.fulfill()
+        })
+        presenter = ViewPresenter(viewInput: viewInput, trackingManager: trackingManager)
+        repository = MockViewRepository(errorToPass: ExternalRequestError.invalidURL)
+        presenter.repositoryInput = repository
+
+        presenter.getEmployeesWithPromise(with: "Employees")
+
+        waitForExpectations(timeout: 2.0, handler: nil)
+
+        XCTAssertFalse(viewInput.didCallSetViewModels)
+        XCTAssertTrue(viewInput.didCallShowErrorMessage)
+        XCTAssertEqual(viewInput.shownErrorMessage, "Invalid URL passed")
+    }
+
+    func testAsyncGetEmployeesWithDecodingError() {
+        let loadEmployeesRecordsExpectation = expectation(description: "Decoding error expectation")
+        viewInput = MockViewInput(completion: {
+            loadEmployeesRecordsExpectation.fulfill()
+        })
+        presenter = ViewPresenter(viewInput: viewInput, trackingManager: trackingManager)
+        repository = MockViewRepository(errorToPass: ExternalRequestError.invalidJSON)
+        presenter.repositoryInput = repository
+
+        presenter.getEmployeesWithPromise(with: "Employees")
+
+        waitForExpectations(timeout: 2.0, handler: nil)
+
+        XCTAssertFalse(viewInput.didCallSetViewModels)
+        XCTAssertTrue(viewInput.didCallShowErrorMessage)
+        XCTAssertEqual(viewInput.shownErrorMessage, "Error occurred while decoding JSON data into Codable object")
+    }
+
+    func testAsyncGetEmployeesWithDefaultError() {
+        let loadEmployeesRecordsExpectation = expectation(description: "Unknown error expectation")
+        viewInput = MockViewInput(completion: {
+            loadEmployeesRecordsExpectation.fulfill()
+        })
+        presenter = ViewPresenter(viewInput: viewInput, trackingManager: trackingManager)
+        repository = MockViewRepository(errorToPass: NSError(domain: "UnitTests", code: 100, userInfo: nil))
+        presenter.repositoryInput = repository
+
+        presenter.getEmployeesWithPromise(with: "Employees")
+
+        waitForExpectations(timeout: 2.0, handler: nil)
+
+        XCTAssertFalse(viewInput.didCallSetViewModels)
+        XCTAssertTrue(viewInput.didCallShowErrorMessage)
+        XCTAssertEqual(viewInput.shownErrorMessage, "Unknown Error occurred")
     }
 }

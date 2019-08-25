@@ -12,9 +12,16 @@ import Foundation
 class MockViewInput: ViewInput {
     var setViewModels: [ViewModel]?
     var didCallSetViewModels = false
+    let completion: (() -> Void)?
+
+    init(completion: (() -> Void)? = nil) {
+        self.completion = completion
+    }
+
     func set(with viewModels: [ViewModel]) {
         didCallSetViewModels = true
         setViewModels = viewModels
+        completion?()
     }
 
     var shownErrorMessage: String?
@@ -22,6 +29,7 @@ class MockViewInput: ViewInput {
     func showError(with message: String) {
         didCallShowErrorMessage = true
         shownErrorMessage = message
+        completion?()
     }
 
     

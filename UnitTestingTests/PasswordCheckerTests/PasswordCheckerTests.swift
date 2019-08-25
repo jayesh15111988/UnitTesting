@@ -64,8 +64,8 @@ extension PasswordError: Equatable {
             return true
         case (.NoNumber, .NoNumber):
             return true
-        case (.CustomMessage(_), .CustomMessage(_)):
-            return true
+        case (let .CustomMessage(message1), let .CustomMessage(message2)):
+            return message1 == message2
         default:
             return false
         }

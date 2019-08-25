@@ -31,6 +31,14 @@ class ViewController: UIViewController {
         return button
     }()
 
+    let infoButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setTitle("Info", for: .normal)
+        button.addTarget(self, action: #selector(displayInfo), for: .touchUpInside)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+
     let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
         activityIndicator.color = .red
@@ -46,7 +54,7 @@ class ViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    weak var viewOutput: ViewOutput?
+    var viewOutput: ViewOutput?
     var viewModels: [ViewModel]?
 
     override func viewDidLoad() {
@@ -55,11 +63,12 @@ class ViewController: UIViewController {
         configureSubviews()
         configureLayout()
         activityIndicator.startAnimating()
-        viewOutput?.getEmployees(with: baseURL)
+        viewOutput?.getEmployeesWithPromise(with: baseURL)
     }
 
     func configureSubviews() {
         self.view.addSubview(refreshButton)
+        self.view.addSubview(infoButton)
         self.view.addSubview(tableView)
         self.view.addSubview(activityIndicator)
         self.view.backgroundColor = .white
@@ -69,23 +78,47 @@ class ViewController: UIViewController {
 
     func configureLayout() {
         refreshButton.translatesAutoresizingMaskIntoConstraints = false
+        infoButton.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+
+        // MARK: TableView Constraints
         NSLayoutConstraint.activate([
-            refreshButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 44),
-            refreshButton.heightAnchor.constraint(equalToConstant: 64.0),
             tableView.topAnchor.constraint(equalTo: refreshButton.bottomAnchor, constant: 44),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ])
+
+        // MARK: Activity Indicator Constraints
+        NSLayoutConstraint.activate([
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            ])
+
+        // MARK: Refresh and Info button Constraints
+        NSLayoutConstraint.activate([
+            refreshButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            infoButton.leadingAnchor.constraint(equalTo: refreshButton.trailingAnchor, constant: 44.0),
+            infoButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            refreshButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 44),
+            infoButton.topAnchor.constraint(equalTo: refreshButton.topAnchor),
+            infoButton.bottomAnchor.constraint(equalTo: refreshButton.bottomAnchor),
+            refreshButton.heightAnchor.constraint(equalToConstant: 64.0),
             ])
     }
 
     @objc func refreshList() {
         activityIndicator.startAnimating()
-        viewOutput?.refreshList()
+        viewOutput?.refreshListTapped()
+    }
+
+    @objc func displayInfo() {
+        viewOutput?.trackDisplayInfo()
+        let alertController = UIAlertController(title: "Showing Information", message:
+            "This is a default message as a part of information", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

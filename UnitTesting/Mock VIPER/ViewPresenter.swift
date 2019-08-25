@@ -9,8 +9,10 @@
 import Foundation
 
 protocol ViewOutput: AnyObject {
-    func getEmployees(with urlString: String)
-    func refreshList()
+    func getEmployeesWithClosure(with urlString: String)
+    func getEmployeesWithPromise(with urlString: String)
+    func refreshListTapped()
+    func trackDisplayInfo()
 }
 
 final class ViewPresenter: ViewOutput {
@@ -24,7 +26,7 @@ final class ViewPresenter: ViewOutput {
         self.trackingManager = trackingManager
     }
 
-    func getEmployees(with urlString: String) {
+    func getEmployeesWithClosure(with urlString: String) {
         repositoryInput?.loadEmployees(with: urlString, completion: { employees in
             self.dataReceived(employees: employees)
         }, errorHandler: { error in
@@ -32,13 +34,21 @@ final class ViewPresenter: ViewOutput {
         })
     }
 
-    func refreshList() {
-        trackingManager.trackClick(event: "refreshList")
-        repositoryInput?.loadEmployees(with: baseURL, completion: { employees in
+    func getEmployeesWithPromise(with urlString: String) {
+        repositoryInput?.loadEmployees(with: urlString).then({ employees in
             self.dataReceived(employees: employees)
-        }, errorHandler: { error in
+        }).catch  ({ error in
             self.errorReceived(error: error)
         })
+    }
+
+    func refreshListTapped() {
+        trackingManager.trackTap(event: "refreshList")
+        getEmployeesWithPromise(with: baseURL)
+    }
+
+    func trackDisplayInfo() {
+        trackingManager.trackTap(event: "info")
     }
 
     func formattedAddress(from address: Address) -> String {
@@ -65,13 +75,17 @@ extension ViewPresenter {
     }
 
     func errorReceived(error: Error) {
-        switch error {
-        case ExternalRequestError.emptyData:
-            viewInput.showError(with: "Empty content. No network data received")
-        case ExternalRequestError.invalidURL:
-            viewInput.showError(with: "Invalid URL passed")
-        default:
-            viewInput.showError(with: "Unknown error occurred")
+        if let error = error as? ExternalRequestError {
+            switch error {
+            case .emptyData:
+                self.viewInput.showError(with: "Empty content. No network data received")
+            case .invalidURL:
+                self.viewInput.showError(with: "Invalid URL passed")
+            case .invalidJSON:
+                self.viewInput.showError(with: "Error occurred while decoding JSON data into Codable object")
+            }
+        } else {
+            self.viewInput.showError(with: "Unknown Error occurred")
         }
     }
 }

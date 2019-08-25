@@ -9,11 +9,11 @@
 import Foundation
 
 protocol TrackingProtocol {
-    func trackClick(event: String)
+    func trackTap(event: String)
 }
 
 class TrackingManager: TrackingProtocol {
-    func trackClick(event: String) {
+    func trackTap(event: String) {
         UserDefaults.standard.set(event, forKey: "Click")
     }
 }

@@ -11,18 +11,19 @@ import Foundation
 enum ExternalRequestError: Error {
     case invalidURL
     case emptyData
+    case invalidJSON
 }
 
 struct NetworkRequest {
-    static func sendRequest(with urlString: String, completionBlock: @escaping ([Employee]) -> Void,  errorBlock: @escaping (Error) -> Void) {
+    static func sendRequest(with urlString: String, completionBlock: @escaping ([Employee]) -> Void,  errorBlock: @escaping (ExternalRequestError) -> Void) {
         guard let url = URL(string: urlString) else {
-            errorBlock(ExternalRequestError.invalidURL)
+            errorBlock(.invalidURL)
             return
         }
 
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else {
-                errorBlock(ExternalRequestError.emptyData)
+                errorBlock(.emptyData)
                 return
             }
 
@@ -30,7 +31,7 @@ struct NetworkRequest {
                 let employees = try JSONDecoder().decode([Employee].self, from: data)
                 completionBlock(employees)
             } catch {
-                errorBlock(error)
+                errorBlock(.invalidJSON)
             }
         }
         task.resume()

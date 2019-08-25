@@ -12,6 +12,7 @@ import Foundation
 class MockViewRepository: RepositoryInput {
 
     let errorToPass: Error?
+
     init(errorToPass: Error?) {
         self.errorToPass = errorToPass
     }
@@ -22,6 +23,15 @@ class MockViewRepository: RepositoryInput {
         } else {
             let employees: [Employee] = MockJSONReader.readJSONFromFile(fileName: urlString)
             completion(employees)
+        }
+    }
+
+    func loadEmployees(with urlString: String) -> Promise<[Employee]> {
+        if let errorToPass = errorToPass {
+            return Promise(error: errorToPass)
+        } else {
+            let employees: [Employee] = MockJSONReader.readJSONFromFile(fileName: urlString)
+            return Promise(value: employees)
         }
     }
 }

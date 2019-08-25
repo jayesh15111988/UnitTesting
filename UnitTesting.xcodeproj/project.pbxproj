@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E31344B3231334C4008BE6EE /* FibonacciUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31344B2231334C4008BE6EE /* FibonacciUtility.swift */; };
+		E31344B523133606008BE6EE /* FibonacciUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31344B423133606008BE6EE /* FibonacciUtilityTests.swift */; };
 		E34BD2212311F6D000B9E9EE /* ViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34BD2202311F6D000B9E9EE /* ViewPresenter.swift */; };
 		E34BD2232311F6DB00B9E9EE /* ViewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34BD2222311F6DB00B9E9EE /* ViewRepository.swift */; };
 		E34BD2262311F78B00B9E9EE /* NetworkUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34BD2252311F78B00B9E9EE /* NetworkUtility.swift */; };
@@ -21,6 +23,7 @@
 		E34BD25E23121BB200B9E9EE /* FeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34BD25D23121BB200B9E9EE /* FeatureTests.swift */; };
 		E34BD26023121C6700B9E9EE /* MockTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34BD25F23121C6700B9E9EE /* MockTrackingManager.swift */; };
 		E34BD26223121FB400B9E9EE /* EmptyEmployees.json in Resources */ = {isa = PBXBuildFile; fileRef = E34BD26123121FB400B9E9EE /* EmptyEmployees.json */; };
+		E34BD26523125ADF00B9E9EE /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34BD26423125ADE00B9E9EE /* Promise.swift */; };
 		E3C320282311F4AE007AD713 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C320272311F4AE007AD713 /* AppDelegate.swift */; };
 		E3C3202A2311F4AE007AD713 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C320292311F4AE007AD713 /* ViewController.swift */; };
 		E3C3202D2311F4AE007AD713 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3C3202B2311F4AE007AD713 /* Main.storyboard */; };
@@ -40,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E31344B2231334C4008BE6EE /* FibonacciUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FibonacciUtility.swift; sourceTree = "<group>"; };
+		E31344B423133606008BE6EE /* FibonacciUtilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FibonacciUtilityTests.swift; sourceTree = "<group>"; };
 		E34BD2202311F6D000B9E9EE /* ViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPresenter.swift; sourceTree = "<group>"; };
 		E34BD2222311F6DB00B9E9EE /* ViewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRepository.swift; sourceTree = "<group>"; };
 		E34BD2252311F78B00B9E9EE /* NetworkUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtility.swift; sourceTree = "<group>"; };
@@ -54,6 +59,7 @@
 		E34BD25D23121BB200B9E9EE /* FeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureTests.swift; sourceTree = "<group>"; };
 		E34BD25F23121C6700B9E9EE /* MockTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTrackingManager.swift; sourceTree = "<group>"; };
 		E34BD26123121FB400B9E9EE /* EmptyEmployees.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EmptyEmployees.json; sourceTree = "<group>"; };
+		E34BD26423125ADE00B9E9EE /* Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		E3C320242311F4AE007AD713 /* UnitTesting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTesting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3C320272311F4AE007AD713 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3C320292311F4AE007AD713 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E313449623132E7F008BE6EE /* FibonacciUtility */ = {
+			isa = PBXGroup;
+			children = (
+				E31344B2231334C4008BE6EE /* FibonacciUtility.swift */,
+			);
+			path = FibonacciUtility;
+			sourceTree = "<group>";
+		};
 		E34BD2242311F78100B9E9EE /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,12 +138,12 @@
 			path = Tracking;
 			sourceTree = "<group>";
 		};
-		E34BD24E231213A500B9E9EE /* PasswordChecker */ = {
+		E34BD24E231213A500B9E9EE /* PasswordCheckerTests */ = {
 			isa = PBXGroup;
 			children = (
 				E3C3203C2311F4B6007AD713 /* PasswordCheckerTests.swift */,
 			);
-			path = PasswordChecker;
+			path = PasswordCheckerTests;
 			sourceTree = "<group>";
 		};
 		E34BD24F231213F400B9E9EE /* FeatureTests */ = {
@@ -161,6 +175,22 @@
 			path = JSONs;
 			sourceTree = "<group>";
 		};
+		E34BD26323125ACB00B9E9EE /* 3rd Party */ = {
+			isa = PBXGroup;
+			children = (
+				E34BD26423125ADE00B9E9EE /* Promise.swift */,
+			);
+			path = "3rd Party";
+			sourceTree = "<group>";
+		};
+		E34BD26623132E3400B9E9EE /* FibonacciUtilityTests */ = {
+			isa = PBXGroup;
+			children = (
+				E31344B423133606008BE6EE /* FibonacciUtilityTests.swift */,
+			);
+			path = FibonacciUtilityTests;
+			sourceTree = "<group>";
+		};
 		E3C3201B2311F4AE007AD713 = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +212,8 @@
 		E3C320262311F4AE007AD713 /* UnitTesting */ = {
 			isa = PBXGroup;
 			children = (
+				E313449623132E7F008BE6EE /* FibonacciUtility */,
+				E34BD26323125ACB00B9E9EE /* 3rd Party */,
 				E34BD24B231212D100B9E9EE /* Tracking */,
 				E34BD24823120CB500B9E9EE /* ExceptionTestingExamples */,
 				E34BD245231204B400B9E9EE /* TableViewCells */,
@@ -200,9 +232,10 @@
 		E3C3203B2311F4B6007AD713 /* UnitTestingTests */ = {
 			isa = PBXGroup;
 			children = (
+				E34BD26623132E3400B9E9EE /* FibonacciUtilityTests */,
 				E34BD2552312151E00B9E9EE /* JSONs */,
 				E34BD24F231213F400B9E9EE /* FeatureTests */,
-				E34BD24E231213A500B9E9EE /* PasswordChecker */,
+				E34BD24E231213A500B9E9EE /* PasswordCheckerTests */,
 				E3C3203E2311F4B6007AD713 /* Info.plist */,
 			);
 			path = UnitTestingTests;
@@ -328,7 +361,9 @@
 				E3C3202A2311F4AE007AD713 /* ViewController.swift in Sources */,
 				E34BD247231204C200B9E9EE /* CustomTableViewCell.swift in Sources */,
 				E34BD2232311F6DB00B9E9EE /* ViewRepository.swift in Sources */,
+				E34BD26523125ADF00B9E9EE /* Promise.swift in Sources */,
 				E3C320282311F4AE007AD713 /* AppDelegate.swift in Sources */,
+				E31344B3231334C4008BE6EE /* FibonacciUtility.swift in Sources */,
 				E34BD2262311F78B00B9E9EE /* NetworkUtility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +374,7 @@
 			files = (
 				E3C3203D2311F4B6007AD713 /* PasswordCheckerTests.swift in Sources */,
 				E34BD25B2312160900B9E9EE /* MockJSONReader.swift in Sources */,
+				E31344B523133606008BE6EE /* FibonacciUtilityTests.swift in Sources */,
 				E34BD2522312149000B9E9EE /* MockViewInput.swift in Sources */,
 				E34BD25E23121BB200B9E9EE /* FeatureTests.swift in Sources */,
 				E34BD26023121C6700B9E9EE /* MockTrackingManager.swift in Sources */,
