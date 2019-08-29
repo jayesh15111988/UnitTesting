@@ -27,29 +27,30 @@ class FeatureTests: XCTestCase {
         presenter.repositoryInput = repository
     }
 
+    override func tearDown() {
+        trackingManager = nil
+        viewInput = nil
+        presenter = nil
+        repository = nil
+        super.tearDown()
+    }
+
     func testTrackingForRefreshListTap() {
         presenter.refreshListTapped()
         XCTAssertTrue(trackingManager.didCallTrackTap)
         XCTAssertEqual(trackingManager.lastTappedEvent, "refreshList")
     }
 
-    func testTrackingForInfoTap() {
-        presenter.trackDisplayInfo()
-        XCTAssertTrue(trackingManager.didCallTrackTap)
-        XCTAssertEqual(trackingManager.lastTappedEvent, "info")
-    }
+func testTrackingForInfoTap() {
+    presenter = ViewPresenter(viewInput: viewInput, trackingManager: trackingManager)
+    presenter.trackDisplayInfo()
+    XCTAssertTrue(trackingManager.didCallTrackTap)
+    XCTAssertEqual(trackingManager.lastTappedEvent, "info")
+}
 
     func testFormattedAddress() {
         let regularAddress = Address(street: "12 Kibana", suite: "101 Royal Suite", city: "Boston", zipcode: "02467")
         XCTAssertEqual(presenter.formattedAddress(from: regularAddress), "12 Kibana\n101 Royal Suite\nBoston\n02467\n")
-    }
-
-    override func tearDown() {
-        viewInput = nil
-        presenter = nil
-        repository = nil
-        trackingManager = nil
-        super.tearDown()
     }
 }
 
@@ -108,9 +109,7 @@ extension FeatureTests {
 
 //// MARK: Mocked promise based or asynchronous response unit tests
 extension FeatureTests {
-    func testAsyncGetEmployeesWithNonEmptyResponse() {
-
-        // Test run when `getEmployees` is called asynchronously
+    func testGetEmployeesWithNonEmptyResponse() {
         let loadEmployeesRecordsExpectation = expectation(description: "Employees data loaded successfully expectation")
         viewInput = MockViewInput(completion: {
             loadEmployeesRecordsExpectation.fulfill()

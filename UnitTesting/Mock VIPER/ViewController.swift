@@ -64,6 +64,10 @@ class ViewController: UIViewController {
         configureLayout()
         activityIndicator.startAnimating()
         viewOutput?.getEmployeesWithPromise(with: baseURL)
+
+        // MARK: For Testing Purpose
+        let numberScalar = NumberScaler(screenRect: UIScreen.main.bounds)
+        print(numberScalar.scale(with: 2))
     }
 
     func configureSubviews() {

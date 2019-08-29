@@ -47,9 +47,9 @@ final class ViewPresenter: ViewOutput {
         getEmployeesWithPromise(with: baseURL)
     }
 
-    func trackDisplayInfo() {
-        trackingManager.trackTap(event: "info")
-    }
+func trackDisplayInfo() {
+    //trackingManager.trackTap(event: "info")
+}
 
     func formattedAddress(from address: Address) -> String {
         return "\(address.street)\n\(address.suite)\n\(address.city)\n\(address.zipcode)\n"

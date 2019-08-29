@@ -6,7 +6,6 @@
 //  Copyright © 2019 Jayesh Kawli. All rights reserved.
 //
 
-import Foundation
 import XCTest
 @testable import UnitTesting
 
@@ -17,6 +16,11 @@ class FibonacciUtilityTests: XCTestCase {
     override func setUp() {
         super.setUp()
         fibonacciUtility = FibonacciUtility()
+    }
+
+    override func tearDown() {
+        fibonacciUtility = nil
+        super.tearDown()
     }
 
     func testFibonacciSequenceGenerationForValidinput() {
