@@ -28,6 +28,9 @@
 		E34BD26023121C6700B9E9EE /* MockTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34BD25F23121C6700B9E9EE /* MockTrackingManager.swift */; };
 		E34BD26223121FB400B9E9EE /* EmptyEmployees.json in Resources */ = {isa = PBXBuildFile; fileRef = E34BD26123121FB400B9E9EE /* EmptyEmployees.json */; };
 		E34BD26523125ADF00B9E9EE /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34BD26423125ADE00B9E9EE /* Promise.swift */; };
+		E397DD8523183286009C8405 /* EmployeeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E397DD8423183286009C8405 /* EmployeeService.swift */; };
+		E397DD88231833CC009C8405 /* EmployeeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E397DD87231833CC009C8405 /* EmployeeServiceTests.swift */; };
+		E397DD8A23183E26009C8405 /* EmployeeServiceConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E397DD8923183E26009C8405 /* EmployeeServiceConsumer.swift */; };
 		E3C320282311F4AE007AD713 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C320272311F4AE007AD713 /* AppDelegate.swift */; };
 		E3C3202A2311F4AE007AD713 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C320292311F4AE007AD713 /* ViewController.swift */; };
 		E3C3202D2311F4AE007AD713 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3C3202B2311F4AE007AD713 /* Main.storyboard */; };
@@ -68,6 +71,9 @@
 		E34BD25F23121C6700B9E9EE /* MockTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTrackingManager.swift; sourceTree = "<group>"; };
 		E34BD26123121FB400B9E9EE /* EmptyEmployees.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EmptyEmployees.json; sourceTree = "<group>"; };
 		E34BD26423125ADE00B9E9EE /* Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		E397DD8423183286009C8405 /* EmployeeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeService.swift; sourceTree = "<group>"; };
+		E397DD87231833CC009C8405 /* EmployeeServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeServiceTests.swift; sourceTree = "<group>"; };
+		E397DD8923183E26009C8405 /* EmployeeServiceConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeServiceConsumer.swift; sourceTree = "<group>"; };
 		E3C320242311F4AE007AD713 /* UnitTesting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTesting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3C320272311F4AE007AD713 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3C320292311F4AE007AD713 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -231,6 +237,23 @@
 			path = FibonacciUtilityTests;
 			sourceTree = "<group>";
 		};
+		E397DD8323183279009C8405 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				E397DD8423183286009C8405 /* EmployeeService.swift */,
+				E397DD8923183E26009C8405 /* EmployeeServiceConsumer.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		E397DD86231833BB009C8405 /* EmployeeServiceableTests */ = {
+			isa = PBXGroup;
+			children = (
+				E397DD87231833CC009C8405 /* EmployeeServiceTests.swift */,
+			);
+			path = EmployeeServiceableTests;
+			sourceTree = "<group>";
+		};
 		E3C3201B2311F4AE007AD713 = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +297,7 @@
 		E3C3203B2311F4B6007AD713 /* UnitTestingTests */ = {
 			isa = PBXGroup;
 			children = (
+				E397DD86231833BB009C8405 /* EmployeeServiceableTests */,
 				E31344BF231368AC008BE6EE /* NumberScalerTests */,
 				E31344B923134BA8008BE6EE /* ConfigManagerTests */,
 				E34BD26623132E3400B9E9EE /* FibonacciUtilityTests */,
@@ -288,6 +312,7 @@
 		E3C320472311F5B5007AD713 /* Mock VIPER */ = {
 			isa = PBXGroup;
 			children = (
+				E397DD8323183279009C8405 /* Service */,
 				E3C320292311F4AE007AD713 /* ViewController.swift */,
 				E34BD2202311F6D000B9E9EE /* ViewPresenter.swift */,
 				E34BD2222311F6DB00B9E9EE /* ViewRepository.swift */,
@@ -405,8 +430,10 @@
 				E34BD24D231212DA00B9E9EE /* TrackingProtocol.swift in Sources */,
 				E3C3202A2311F4AE007AD713 /* ViewController.swift in Sources */,
 				E34BD247231204C200B9E9EE /* CustomTableViewCell.swift in Sources */,
+				E397DD8A23183E26009C8405 /* EmployeeServiceConsumer.swift in Sources */,
 				E31344BE2313681D008BE6EE /* NumberScaler.swift in Sources */,
 				E34BD2232311F6DB00B9E9EE /* ViewRepository.swift in Sources */,
+				E397DD8523183286009C8405 /* EmployeeService.swift in Sources */,
 				E34BD26523125ADF00B9E9EE /* Promise.swift in Sources */,
 				E3C320282311F4AE007AD713 /* AppDelegate.swift in Sources */,
 				E31344B3231334C4008BE6EE /* FibonacciUtility.swift in Sources */,
@@ -425,6 +452,7 @@
 				E34BD2522312149000B9E9EE /* MockViewInput.swift in Sources */,
 				E34BD25E23121BB200B9E9EE /* FeatureTests.swift in Sources */,
 				E34BD26023121C6700B9E9EE /* MockTrackingManager.swift in Sources */,
+				E397DD88231833CC009C8405 /* EmployeeServiceTests.swift in Sources */,
 				E34BD254231214AF00B9E9EE /* MockViewRepository.swift in Sources */,
 				E31344BB23134BB7008BE6EE /* ConfigManagerTests.swift in Sources */,
 			);

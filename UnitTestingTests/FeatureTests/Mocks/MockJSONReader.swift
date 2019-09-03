@@ -7,19 +7,22 @@
 //
 
 import Foundation
+import XCTest
 
-class MockJSONReader {
-    static func readJSONFromFile<T: Codable>(fileName: String) -> [T] {
+class JSONLoader {
+    static func load<T: Codable>(fromFile name: String) -> [T] {
         var objects: [T] = []
 
-        if let path = Bundle(for: self).path(forResource: fileName, ofType: "json") {
+        if let path = Bundle(for: self).path(forResource: name, ofType: "json") {
             do {
                 let fileUrl = URL(fileURLWithPath: path)
                 let data = try Data(contentsOf: fileUrl, options: .mappedIfSafe)
                 objects = try JSONDecoder().decode([T].self, from: data)
             } catch {
-                objects = []
+                XCTFail("Something went wrong while reading data from file \(name)")
             }
+        } else {
+            XCTFail("Could not find the file \(name) in test bundle")
         }
         return objects
     }

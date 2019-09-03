@@ -21,7 +21,7 @@ class MockViewRepository: RepositoryInput {
         if let errorToPass = errorToPass {
             errorHandler(errorToPass)
         } else {
-            let employees: [Employee] = MockJSONReader.readJSONFromFile(fileName: urlString)
+            let employees: [Employee] = JSONLoader.load(fromFile: urlString)
             completion(employees)
         }
     }
@@ -30,7 +30,7 @@ class MockViewRepository: RepositoryInput {
         if let errorToPass = errorToPass {
             return Promise(error: errorToPass)
         } else {
-            let employees: [Employee] = MockJSONReader.readJSONFromFile(fileName: urlString)
+            let employees: [Employee] = JSONLoader.load(fromFile: urlString)
             return Promise(value: employees)
         }
     }

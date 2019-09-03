@@ -15,7 +15,7 @@ class ConfigManagerTests: XCTestCase {
 
     func testUSCurrencySymbol() {
         configManager.country = .us
-XCTAssertEqual(configManager.getCurrencySymbol(), "$", "Failed to match currency symbol for given country. Expected $, got \(configManager.getCurrencySymbol())")
+        XCTAssertEqual(configManager.getCurrencySymbol(), "$", "Failed to match currency symbol for given country. Expected $, got \(configManager.getCurrencySymbol())")
     }
 
     func testGermanCurrencySymbol() {
