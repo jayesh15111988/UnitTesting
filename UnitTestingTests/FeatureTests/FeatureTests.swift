@@ -41,12 +41,12 @@ class FeatureTests: XCTestCase {
         XCTAssertEqual(trackingManager.lastTappedEvent, "refreshList")
     }
 
-func testTrackingForInfoTap() {
-    presenter = ViewPresenter(viewInput: viewInput, trackingManager: trackingManager)
-    presenter.trackDisplayInfo()
-    XCTAssertTrue(trackingManager.didCallTrackTap)
-    XCTAssertEqual(trackingManager.lastTappedEvent, "info")
-}
+    func testTrackingForInfoTap() {
+        presenter = ViewPresenter(viewInput: viewInput, trackingManager: trackingManager)
+        presenter.trackDisplayInfo()
+        XCTAssertTrue(trackingManager.didCallTrackTap)
+        XCTAssertEqual(trackingManager.lastTappedEvent, "info")
+    }
 
     func testFormattedAddress() {
         let regularAddress = Address(street: "12 Kibana", suite: "101 Royal Suite", city: "Boston", zipcode: "02467")

@@ -25,10 +25,10 @@ final class EmployeeServiceConsumer {
         self.completionHandler = completionHandler
     }
 
-func loadEmployees() {
-    self.employeeService.loadEmployees().then({ [weak self] employees in
-        self?.employeesViewModels = employees.map { EmployeeViewModel(id: $0.id, name: $0.username) }
-        self?.completionHandler?()
-    })
-}
+    func loadEmployees() {
+        self.employeeService.loadEmployees().then({ [weak self] employees in
+            self?.employeesViewModels = employees.map { EmployeeViewModel(id: $0.id, name: $0.username) }
+            self?.completionHandler?()
+        })
+    }
 }

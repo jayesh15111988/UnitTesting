@@ -155,6 +155,74 @@ extension ViewController: UITableViewDataSource {
         cell.apply(viewModel: viewModel)
         return cell
     }
+}
 
+class FormChecker {
+
+    struct FormData {
+        let username: String
+        let phoneNumber: String
+        let emailAddress: String
+    }
+
+    func isFormValid(with data: FormData) -> Bool {
+
+        // Username checker implementation
+        if !isUsernameValid(with: data.username) {
+            return false
+        }
+
+        // Phone number checker implementation
+        if !isPhoneNumberValid(with: data.phoneNumber) {
+            return false
+        }
+
+        // Email address checker implementation
+        if !isEmailAddressValid(with: data.emailAddress) {
+            return false
+        }
+
+        return true
+    }
+
+    func isUsernameValid(with username: String) -> Bool {
+        return true
+    }
+
+    func isPhoneNumberValid(with phoneNumber: String) -> Bool {
+        return true
+    }
+
+    func isEmailAddressValid(with emailAddress: String) -> Bool {
+        return true
+    }
+}
+
+protocol Trackable {
+    func trackScreen(screenName: String, data: [String: String])
+    func trackClickLocation(trackedLocation: CGPoint, event: String)
+    func trackTap(trackedEvent: String)
+}
+
+class MockTrackable: Trackable {
+
+    var savedScreenName: String?
+    var savedData: [String: String]?
+    func trackScreen(screenName: String, data: [String : String]) {
+        savedScreenName = screenName
+        savedData = data
+    }
+
+    var savedTrackedLocation: CGPoint?
+    var savedEvent: String?
+    func trackClickLocation(trackedLocation: CGPoint, event: String) {
+        savedTrackedLocation = trackedLocation
+        savedEvent = event
+    }
+
+    var savedTrackedEvent: String?
+    func trackTap(trackedEvent: String) {
+        savedTrackedEvent = trackedEvent
+    }
 
 }
