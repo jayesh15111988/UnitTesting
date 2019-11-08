@@ -25,9 +25,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         presenter.repositoryInput = repository
         viewController.viewOutput = presenter
 
+        let onez = try? FibonacciUtility().generateFibonacciNumber(for: 0)
+        let one = try? FibonacciUtility().generateFibonacciNumber(for: 1)
+        let one1 = try? FibonacciUtility().generateFibonacciNumber(for: 2)
+        let one2 = try? FibonacciUtility().generateFibonacciNumber(for: 3)
+        let one3 = try? FibonacciUtility().generateFibonacciNumber(for: 4)
+        let one4 = try? FibonacciUtility().generateFibonacciNumber(for: 5)
+        let one5 = try? FibonacciUtility().generateFibonacciNumber(for: 8)
+
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
+        set(viewModel: true)
         return true
+    }
+
+    func set(viewModel: Bool?) {
+        if let vm = viewModel {
+            do {
+                print(vm)
+            }
+        }
+        print("blah blah")
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

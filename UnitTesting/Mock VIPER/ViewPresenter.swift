@@ -13,6 +13,7 @@ protocol ViewOutput: AnyObject {
     func getEmployeesWithPromise(with urlString: String)
     func refreshListTapped()
     func trackDisplayInfo()
+    func trackRefreshTap()
 }
 
 final class ViewPresenter: ViewOutput {
@@ -43,13 +44,17 @@ final class ViewPresenter: ViewOutput {
     }
 
     func refreshListTapped() {
-        trackingManager.trackTap(event: "refreshList")
+        trackRefreshTap()
         getEmployeesWithPromise(with: baseURL)
     }
 
-func trackDisplayInfo() {
-    //trackingManager.trackTap(event: "info")
-}
+    func trackRefreshTap() {
+        trackingManager.trackTap(event: "refreshList")
+    }
+
+    func trackDisplayInfo() {
+        trackingManager.trackTap(event: "info")
+    }
 
     func formattedAddress(from address: Address) -> String {
         return "\(address.street)\n\(address.suite)\n\(address.city)\n\(address.zipcode)\n"

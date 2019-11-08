@@ -16,7 +16,7 @@ final class FibonacciUtility {
 
 func generateFibonacciNumber(for sequence: Int) throws -> Int {
 
-    guard sequence > 0 else { throw FibonacciError.invalidInput }
+    guard sequence >= 0 else { throw FibonacciError.invalidInput }
 
     var num1 = 0
     var num2 = 1

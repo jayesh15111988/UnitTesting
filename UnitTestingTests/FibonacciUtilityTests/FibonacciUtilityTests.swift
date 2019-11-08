@@ -24,6 +24,7 @@ class FibonacciUtilityTests: XCTestCase {
     }
 
     func testFibonacciSequenceGenerationForValidinput() {
+        XCTAssertEqual(try fibonacciUtility.generateFibonacciNumber(for: 0), 0)
         XCTAssertEqual(try fibonacciUtility.generateFibonacciNumber(for: 1), 1)
         XCTAssertEqual(try fibonacciUtility.generateFibonacciNumber(for: 7), 13)
         XCTAssertEqual(try fibonacciUtility.generateFibonacciNumber(for: 12), 144)

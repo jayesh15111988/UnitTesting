@@ -36,7 +36,7 @@ class FeatureTests: XCTestCase {
     }
 
     func testTrackingForRefreshListTap() {
-        presenter.refreshListTapped()
+        presenter.trackRefreshTap()
         XCTAssertTrue(trackingManager.didCallTrackTap)
         XCTAssertEqual(trackingManager.lastTappedEvent, "refreshList")
     }

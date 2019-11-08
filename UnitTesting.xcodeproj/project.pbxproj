@@ -28,6 +28,8 @@
 		E34BD26023121C6700B9E9EE /* MockTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34BD25F23121C6700B9E9EE /* MockTrackingManager.swift */; };
 		E34BD26223121FB400B9E9EE /* EmptyEmployees.json in Resources */ = {isa = PBXBuildFile; fileRef = E34BD26123121FB400B9E9EE /* EmptyEmployees.json */; };
 		E34BD26523125ADF00B9E9EE /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34BD26423125ADE00B9E9EE /* Promise.swift */; };
+		E352B30A23750E210014C3EB /* Employees.json in Resources */ = {isa = PBXBuildFile; fileRef = E34BD2562312158700B9E9EE /* Employees.json */; };
+		E352B30B23750E210014C3EB /* EmptyEmployees.json in Resources */ = {isa = PBXBuildFile; fileRef = E34BD26123121FB400B9E9EE /* EmptyEmployees.json */; };
 		E397DD8523183286009C8405 /* EmployeeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E397DD8423183286009C8405 /* EmployeeService.swift */; };
 		E397DD88231833CC009C8405 /* EmployeeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E397DD87231833CC009C8405 /* EmployeeServiceTests.swift */; };
 		E397DD8A23183E26009C8405 /* EmployeeServiceConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E397DD8923183E26009C8405 /* EmployeeServiceConsumer.swift */; };
@@ -401,6 +403,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E352B30A23750E210014C3EB /* Employees.json in Resources */,
+				E352B30B23750E210014C3EB /* EmptyEmployees.json in Resources */,
 				E3C320322311F4B6007AD713 /* LaunchScreen.storyboard in Resources */,
 				E3C3202F2311F4B6007AD713 /* Assets.xcassets in Resources */,
 				E3C3202D2311F4AE007AD713 /* Main.storyboard in Resources */,
